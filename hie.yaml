@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "./"
+      component: "lib:aoc2015-haskell"
+    - path: "./"
+      component: "aoc2015-haskell"
+
