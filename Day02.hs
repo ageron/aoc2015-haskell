@@ -6,8 +6,9 @@ boxSizes :: String -> [(Int, Int, Int)]
 boxSizes input = map parseBoxSize (lines input)
   where
     parseBoxSize str =
-      let [l, w, h] = splitOn "x" str
-       in (read l, read w, read h)
+      case splitOn "x" str of
+        [l, w, h] -> (read l, read w, read h)
+        _ -> error "Expected format <l>x<w>x<h>"
 
 part1 :: String -> String
 part1 input = show $ sum $ map paperArea (boxSizes input)
