@@ -129,6 +129,7 @@ executable aoc2015-haskell
     build-depends:
           base ^>=4.17.2.1
         , split ^>=0.2.5
+        , containers ^>=0.7
 
     -- Directories containing source files.
     hs-source-dirs:   .
