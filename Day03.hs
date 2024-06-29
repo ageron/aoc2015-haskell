@@ -23,5 +23,6 @@ part1 input = show $ length $ removeDuplicates $ path input
 part2 :: String -> String
 part2 input = show $ length $ removeDuplicates (path santa ++ path roboSanta)
   where
-    santa = [input !! idx | idx <- [0, 2 .. length input - 1]]
-    roboSanta = [input !! idx | idx <- [1, 3 .. length input - 1]]
+    len = length input - 1
+    santa = [input !! idx | idx <- [0, 2 .. len]]
+    roboSanta = [input !! idx | idx <- [1, 3 .. len]]
