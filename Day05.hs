@@ -1,7 +1,7 @@
 module Day05 where
 
 import Data.Char (toLower)
-import Text.Regex.PCRE
+import Text.Regex.PCRE ((=~))
 
 part1 :: String -> String
 part1 input = show $ length $ filter niceString (lines input)
