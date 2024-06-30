@@ -1,6 +1,6 @@
 module Day03 where
 
-import Data.Set
+import Data.Set (fromList, toList)
 
 removeDuplicates :: (Ord a) => [a] -> [a]
 removeDuplicates = toList . fromList

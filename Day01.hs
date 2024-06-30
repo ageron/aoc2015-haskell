@@ -1,6 +1,6 @@
 module Day01 where
 
-import Data.List
+import Data.List (findIndex)
 
 floors :: String -> [Int]
 floors input = scanl (+) 0 $ map charValue input
