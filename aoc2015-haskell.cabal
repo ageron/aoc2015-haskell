@@ -134,6 +134,7 @@ executable aoc2015-haskell
         , cryptohash-md5 ^>=0.11.100.1
         , split ^>=0.2.5
         , utf8-string ^>=1.0.2
+        , regex-pcre-builtin ^>=0.95.2.3.8.44
 
     -- Directories containing source files.
     hs-source-dirs:   .
