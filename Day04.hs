@@ -3,7 +3,7 @@ module Day04 where
 import Crypto.Hash.MD5 qualified as MD5
 import Data.ByteString.Base16 (encode)
 import Data.ByteString.UTF8 qualified as BSU
-import Data.List
+import Data.List (find)
 
 isValidHash :: String -> Int -> Int -> Bool
 isValidHash input difficulty index = BSU.take difficulty h == nZeros difficulty
