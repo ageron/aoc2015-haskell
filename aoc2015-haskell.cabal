@@ -135,6 +135,7 @@ executable aoc2015-haskell
         , split ^>=0.2.5
         , utf8-string ^>=1.0.2
         , regex-pcre-builtin ^>=0.95.2.3.8.44
+        , array ^>=0.5.4.0
 
     -- Directories containing source files.
     hs-source-dirs:   .
