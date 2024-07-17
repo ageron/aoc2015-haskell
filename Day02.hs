@@ -1,6 +1,6 @@
 module Day02 where
 
-import Data.List.Split (splitOn)
+import           Data.List.Split (splitOn)
 
 boxSizes :: String -> [(Int, Int, Int)]
 boxSizes input = map parseBoxSize (lines input)
@@ -8,7 +8,7 @@ boxSizes input = map parseBoxSize (lines input)
     parseBoxSize str =
       case splitOn "x" str of
         [l, w, h] -> (read l, read w, read h)
-        _ -> error "Expected format <l>x<w>x<h>"
+        _         -> error "Expected format <l>x<w>x<h>"
 
 part1 :: String -> String
 part1 input = show $ sum $ map paperArea (boxSizes input)
