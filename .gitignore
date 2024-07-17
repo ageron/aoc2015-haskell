@@ -1,2 +1,12 @@
 dist-newstyle/
 .session
+*.fls
+*.hi
+*.o
+*.aux
+*.fdb_latexmk
+*.log
+*.gz
+*.toc
+*.pdf
+*.dvi
