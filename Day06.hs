@@ -1,7 +1,11 @@
 module Day06 where
 
-import           Data.Array
-import           Text.Regex.PCRE ((=~))
+import           Data.Array        (range)
+import           Data.Array.IArray (elems)
+import           Data.Array.MArray (newArray, readArray, writeArray)
+import           Data.Array.ST     (runSTUArray)
+import           Data.Foldable     (for_)
+import           Text.Regex.PCRE   ((=~))
 
 data Action
   = TurnOn
@@ -15,29 +19,36 @@ parseAction "turn off" = TurnOff
 parseAction "toggle"   = Toggle
 parseAction action     = error $ "Invalid action '" ++ action ++ "'"
 
-parseInstructions :: String -> [(Action, [Int])]
+parseInstructions :: String -> [(Action, ((Int, Int), (Int, Int)))]
 parseInstructions input = map parseInstruction $ lines input
   where
     parseInstruction line = instructionTuple (head $ parseGroups line)
-    instructionTuple (_:actionStr:coordsStr) =
-      (parseAction actionStr, map read coordsStr :: [Int])
-    instructionTuple gs = error $ "Invalid instruction " ++ show gs
-    parseGroups line =
-      let regex =
-            "(turn on|turn off|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)"
-       in (line =~ regex) :: [[String]]
+      where
+        instructionTuple (_:actionStr:coordsStr) =
+          (parseAction actionStr, parseCoords (map read coordsStr))
+          where
+            parseCoords [x1, y1, x2, y2] = ((x1, y1), (x2, y2))
+            parseCoords _                = error "Invalid coordinates"
+        instructionTuple gs = error $ "Invalid instruction " ++ show gs
+        parseGroups s =
+          let regex =
+                "(turn on|turn off|toggle) (\\d+),(\\d+) through (\\d+),(\\d+)"
+           in (s =~ regex) :: [[String]]
 
 runInstructions :: (Action -> Int -> Int) -> String -> String
 runInstructions updateRule input =
-  show $ sum $ foldl updateLights lightsOff (parseInstructions input)
-  where
-    updateLights lights (action, [x1, y1, x2, y2]) =
-      lights
-        // [ (idx, updateRule action (lights ! idx))
-           | idx <- range ((x1, y1), (x2, y2))
-           ]
-    updateLights _ _ = error "Invalid instructions"
-    lightsOff = accumArray (+) 0 ((0, 0), (999, 999)) []
+  let actions = parseInstructions input
+   in show
+        $ sum
+        $ elems
+        $ runSTUArray
+        $ do
+            lightsArray <- newArray ((0, 0), (999, 999)) 0
+            for_ actions $ \(action, coords) ->
+              for_ (range coords) $ \idx -> do
+                oldState <- readArray lightsArray idx
+                writeArray lightsArray idx (updateRule action oldState)
+            return lightsArray
 
 part1 :: String -> String
 part1 = runInstructions updateRule
