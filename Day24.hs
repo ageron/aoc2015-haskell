@@ -1,10 +1,7 @@
 module Day24 where
 
-notImplemented :: String -> String
-notImplemented input = "Not implemented, input length = " ++ show (length input)
-
 part1 :: String -> String
-part1 = notImplemented
+part1 _ = "not implemented"
 
 part2 :: String -> String
-part2 = notImplemented
+part2 _ = "not implemented"
