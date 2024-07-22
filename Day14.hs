@@ -13,9 +13,9 @@ parseReindeers input = map (parseLine . words) (lines input)
     parseLine [name, "can", "fly", speedStr, "km/s", "for", durationStr, "seconds,", "but", "then", "must", "rest", "for", restStr, "seconds."] =
       Reindeer
         { name
-        , speed = read speedStr :: Int
-        , duration = read durationStr :: Int
-        , rest = read restStr :: Int
+        , speed = read speedStr
+        , duration = read durationStr
+        , rest = read restStr
         }
     parseLine _ = error "Invalid reindeer list format"
 
