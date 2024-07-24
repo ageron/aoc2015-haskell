@@ -1,7 +1,7 @@
 module AOCTools where
 
 import           Control.DeepSeq (deepseq)
-import           System.CPUTime
+import           System.CPUTime (getCPUTime)
 import           Text.Printf     (printf)
 
 formatDiffTime :: Integer -> String
